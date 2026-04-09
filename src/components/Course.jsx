@@ -3,7 +3,7 @@ import React from "react";
 import Header from "./Header";
 import Content from "./Content";
 
-const Total = (props) => <p>Number of exercises {props.total}</p>;
+const Total = ({ total }) => <strong>total of exercises {total}</strong>;
 
 const Course = ({ course }) => {
   return (
@@ -11,11 +11,9 @@ const Course = ({ course }) => {
       <Header course={course.name} />
       <Content parts={course.parts} />
       <Total
-        total={
-          course.parts[0].exercises +
-          course.parts[1].exercises +
-          course.parts[2].exercises
-        }
+        total={course.parts.reduce((sum, part) => {
+          return sum + part.exercises;
+        }, 0)}
       />
     </div>
   );
