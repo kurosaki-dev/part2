@@ -1,9 +1,28 @@
 import React from "react";
 
-import Header from "./Header";
-import Content from "./Content";
-
 const Total = ({ total }) => <strong>total of exercises {total}</strong>;
+
+const Header = ({ course }) => {
+  return <h1>{course}</h1>;
+};
+
+const Content = ({ parts }) => {
+  return (
+    <div>
+      {parts.map((part) => (
+        <Part key={part.id} part={part} />
+      ))}
+    </div>
+  );
+};
+
+const Part = ({ part }) => {
+  return (
+    <p>
+      {part.name} {part.exercises}
+    </p>
+  );
+};
 
 const Course = ({ course }) => {
   return (
