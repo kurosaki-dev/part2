@@ -11,8 +11,31 @@ const App = () => {
       name: newName,
     };
 
-    setPersons(persons.concat(personObject));
-    setNewName("");
+    // first solution (the one that i came up with)
+    /*
+    function isPersonExist(name) {
+      for (let i = 0; i < persons.length; i++) {
+        if (name === persons[i].name) {
+          return true;
+        }
+      }
+
+      return false;
+    }
+      */
+
+    // clean up solution
+    const isPersonExist = (name) => {
+      return persons.some((person) => person.name === name);
+    };
+
+    if (isPersonExist(personObject.name)) {
+      alert(`${personObject.name} is already added to phonebook`);
+      setNewName("");
+    } else {
+      setPersons(persons.concat(personObject));
+      setNewName("");
+    }
   };
 
   const handlePersonChange = (event) => {
@@ -31,8 +54,8 @@ const App = () => {
         </div>
       </form>
       <h2>Numbers</h2>
-      {persons.map((person, i) => (
-        <p key={i}>{person.name}</p>
+      {persons.map((person) => (
+        <p key={person.name}>{person.name}</p>
       ))}
     </div>
   );
