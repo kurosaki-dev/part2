@@ -1,16 +1,51 @@
-# React + Vite
+# Full Stack Open Part 2 Workspace
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This repository is set up as a React + Vite workspace for the Full Stack Open course. The current codebase matches the early Part 2 exercises around rendering course data with reusable components.
 
-Currently, two official plugins are available:
+## Current Learning Focus
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Component decomposition
+- Passing data with props
+- Rendering lists with `map`
+- Deriving values from arrays with `reduce`
 
-## React Compiler
+Core files in the current exercise flow:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- `src/App.jsx`
+- `src/components/Course.jsx`
+- `src/components/Content.jsx`
+- `src/components/Header.jsx`
+- `src/components/Part.jsx`
 
-## Expanding the ESLint configuration
+## Mentor Workflow
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+This workspace now includes a mentoring guide in [`MENTORING.md`](./MENTORING.md).
+
+Default collaboration style:
+
+- Mentor mode
+- Hints first
+- Review and explanation before full solutions
+- Course-aligned guidance over overengineered patterns
+
+You can steer the support style at any time with prompts like:
+
+- `give me only hints`
+- `review my code`
+- `explain this concept`
+- `show me the full solution`
+
+## Development Commands
+
+- `npm run dev` starts the Vite development server
+- `npm run build` creates a production build
+- `npm run lint` runs ESLint
+
+## Success Criteria
+
+The goal is not just to finish exercises, but to understand them well enough to explain:
+
+- what each component is responsible for
+- why data flows through props the way it does
+- how derived values are calculated
+- which parts of the solution are course-core versus optional improvements
