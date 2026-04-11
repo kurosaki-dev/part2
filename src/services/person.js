@@ -26,4 +26,13 @@ const deleteData = (id) => {
   return request.then((response) => response.data);
 };
 
-export default { getAll, create, deleteData };
+const updateData = (id, personObject) => {
+  const request = axios.put(
+    `http://localhost:3001/persons/${id}`,
+    personObject,
+  );
+
+  return request.then((response) => response.data);
+};
+
+export default { getAll, create, deleteData, updateData };

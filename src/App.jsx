@@ -64,8 +64,31 @@ const App = () => {
     };
 
     if (isPersonExist(personObject.name)) {
-      alert(`${personObject.name} is already added to phonebook`);
-      emptyInputStates();
+      if (
+        window.confirm(
+          `${personObject.name} is already added to phonebook, replace the old number with a new one?`,
+        )
+      ) {
+        const personId = persons.find(
+          (person) => person.name === personObject.name,
+        );
+        const changedNumber = { ...personId, number: newNumber };
+
+        // replace number for existing name
+        personService
+          .updateData(personId.id, changedNumber)
+          .then((returnedPerson) =>
+            setPersons(
+              persons.map((person) =>
+                person.id === personId.id ? returnedPerson : person,
+              ),
+            ),
+          )
+          .catch((error) => console.log(error));
+        emptyInputStates();
+      } else {
+        console.log("action cancelled.");
+      }
     } else if (isNumberExist(personObject.number)) {
       alert(`${personObject.number} is already registered.`);
       emptyInputStates();
