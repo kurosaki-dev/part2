@@ -95,6 +95,17 @@ const App = () => {
     setSearch(event.target.value);
   };
 
+  const handleDelete = (person) => {
+    if (window.confirm(`Delete ${person.name} ?`)) {
+      personService.deleteData(person.id).then(() => {
+        console.log(persons);
+        setPersons(persons.filter((p) => p.id !== person.id));
+      });
+    } else {
+      console.log("Cancelled...");
+    }
+  };
+
   return (
     <div>
       <h2>Phonebook</h2>
@@ -114,6 +125,7 @@ const App = () => {
         search={search}
         filteredPersons={filteredPersons}
         persons={persons}
+        handleDelete={handleDelete}
       />
     </div>
   );

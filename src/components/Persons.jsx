@@ -1,6 +1,6 @@
 import React from "react";
 
-const Persons = ({ search, filteredPersons, persons }) => {
+const Persons = ({ search, filteredPersons, persons, handleDelete }) => {
   return (
     <div>
       {search.trim() ? (
@@ -8,6 +8,7 @@ const Persons = ({ search, filteredPersons, persons }) => {
           filteredPersons.map((person) => (
             <p key={person.id}>
               {person.name} <span>{person.number}</span>
+              <button onClick={() => handleDelete(person)}>delete</button>
             </p>
           ))
         ) : (
@@ -17,6 +18,7 @@ const Persons = ({ search, filteredPersons, persons }) => {
         persons.map((person) => (
           <p key={person.id}>
             {person.name} <span>{person.number}</span>
+            <button onClick={() => handleDelete(person)}>delete</button>
           </p>
         ))
       )}
