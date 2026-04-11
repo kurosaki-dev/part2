@@ -5,12 +5,14 @@ import Persons from "./components/Persons";
 
 // services
 import personService from "./services/person";
+import Notification from "./components/Notification";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [search, setSearch] = useState("");
+  const [notification, setNotification] = useState(null);
 
   useEffect(() => {
     personService.getAll().then((initial) => setPersons(initial));
@@ -84,7 +86,16 @@ const App = () => {
               ),
             ),
           )
-          .catch((error) => console.log(error));
+          .catch((error) => {
+            setNotification({
+              type: "error",
+              message: `Information of ${personId.name} has already been deleted from the server`,
+            });
+
+            setTimeout(() => {
+              setNotification(null);
+            }, 5000);
+          });
         emptyInputStates();
       } else {
         console.log("action cancelled.");
@@ -97,6 +108,15 @@ const App = () => {
         .create(personObject)
         .then((data) => {
           setPersons(persons.concat(data));
+
+          setNotification({
+            type: "success",
+            message: `Added ${data.name}`,
+          });
+          setTimeout(() => {
+            setNotification(null);
+          }, 5000);
+
           emptyInputStates();
         })
         .catch((error) => alert("Error adding data in phonebook"));
@@ -132,6 +152,8 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification notification={notification} />
+
       <Filter search={search} handleSearch={handleSearch} />
 
       <h3>Add New</h3>
