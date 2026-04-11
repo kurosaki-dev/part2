@@ -2,7 +2,9 @@ import { useState, useEffect } from "react";
 import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
 import Persons from "./components/Persons";
-import axios from "axios";
+
+// services
+import personService from "./services/person";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
@@ -11,18 +13,15 @@ const App = () => {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    axios.get("http://localhost:3001/persons").then((response) => {
-      setPersons(response.data);
-    });
+    personService.getAll().then((initial) => setPersons(initial));
   }, []);
-
-  console.log(persons);
 
   // for search filtering
   const filteredPersons = persons.filter((person) =>
     person.name.toLowerCase().includes(search.trim().toLowerCase()),
   );
 
+  // form submission function
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -32,7 +31,6 @@ const App = () => {
     }
 
     const personObject = {
-      id: String(persons.length + 1),
       name: newName,
       number: newNumber,
     };
@@ -72,8 +70,13 @@ const App = () => {
       alert(`${personObject.number} is already registered.`);
       emptyInputStates();
     } else {
-      setPersons(persons.concat(personObject));
-      emptyInputStates();
+      personService
+        .create(personObject)
+        .then((data) => {
+          setPersons(persons.concat(data));
+          emptyInputStates();
+        })
+        .catch((error) => alert("Error adding data in phonebook"));
     }
   };
 
